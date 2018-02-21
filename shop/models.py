@@ -45,7 +45,7 @@ class Review(models.Model):
     message = models.TextField()
 
     def __str__(self):
-        return self.author
+        return self.message
 
 
 class Item(models.Model):
