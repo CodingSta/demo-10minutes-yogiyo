@@ -44,6 +44,9 @@ class Review(models.Model):
     rating = models.SmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     message = models.TextField()
 
+    class Meta:
+        ordering = ['-id']
+
     def __str__(self):
         return self.message
 
@@ -61,6 +64,6 @@ class Item(models.Model):
         return self.name
 
 
-# class Order(models.Model):
-#    pass
 
+# class Order(models.Model):
+#     pass

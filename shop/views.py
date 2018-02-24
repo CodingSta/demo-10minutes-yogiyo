@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Category, Shop, Review
@@ -11,7 +12,7 @@ category_detail = DetailView.as_view(model=Category)
 shop_detail = DetailView.as_view(model=Shop)
 
 
-class ReviewCreateView(CreateView):
+class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
 
