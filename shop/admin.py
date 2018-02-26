@@ -1,7 +1,7 @@
 from urllib.parse import quote
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Category, Shop, Item, Review
+from .models import Category, Shop, Item, Review, Order, OrderItem
 
 
 @admin.register(Category)
@@ -42,5 +42,15 @@ class ItemAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
     pass
 

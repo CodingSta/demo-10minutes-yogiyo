@@ -65,5 +65,20 @@ class Item(models.Model):
 
 
 
-# class Order(models.Model):
-#     pass
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    amount = models.PositiveIntegerField()
+    address = models.CharField(max_length=100)
+    phone = models.CharField(max_length=11)
+
+
+class OrderItem(models.Model):
+    item = models.ForeignKey(Item)
+    quantity = models.PositiveIntegerField()
+    order = models.ForeignKey(Order)
+    # item_amount
+
+    @property
+    def amount(self):
+        return self.quantity * self.item.amount
+
