@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Category, Shop, Review, Order, Item, OrderItem
-from .forms import ReviewForm, OrderForm
+from .forms import ReviewForm, OrderForm, PayForm
 
 
 index = ListView.as_view(model=Category)
@@ -46,7 +46,7 @@ def order_new(request, shop_pk):
         item_order_list.append(order_item)
 
     amount = sum(order_item.amount for order_item in item_order_list)
-    instance = Order(amount=amount)
+    instance = Order(name='배달주문건', amount=amount)
 
     if request.method == 'POST':
         form = OrderForm(request.POST, instance=instance)
@@ -59,7 +59,7 @@ def order_new(request, shop_pk):
                 order_item.order = order
             OrderItem.objects.bulk_create(item_order_list)
 
-            return redirect('shop:order_pay', shop_pk, order.pk)
+            return redirect('shop:order_pay', shop_pk, str(order.merchant_uid))
     else:
         form = OrderForm(instance=instance)
 
@@ -69,11 +69,20 @@ def order_new(request, shop_pk):
     })
 
 
-def order_pay(request, shop_pk, pk):
-    order = get_object_or_404(Order, user=request.user, pk=pk)
-    # TODO: order.user와 request.user 비교
+@login_required
+def order_pay(request, shop_pk, merchant_uid):
+    order = get_object_or_404(Order, user=request.user, merchant_uid=merchant_uid, status='ready')
+
+    if request.method == 'POST':
+        form = PayForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = PayForm(instance=order)
+
     return render(request, 'shop/order_pay.html', {
-        'order': order,
+        'form': form,
     })
 
 

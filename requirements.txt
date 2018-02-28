@@ -2,3 +2,5 @@ django<2
 pillow
 django-extensions
 django-jsonfield
+iamport-rest-client
+

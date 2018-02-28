@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from jsonfield import JSONField
+from .payment import BaseOrder
 
 
 class Category(models.Model):
@@ -65,9 +66,7 @@ class Item(models.Model):
 
 
 
-class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    amount = models.PositiveIntegerField()
+class Order(BaseOrder):
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=11)
 

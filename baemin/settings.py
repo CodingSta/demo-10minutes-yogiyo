@@ -135,3 +135,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 NAVER_MAP_CLIENT_ID = "MurlNMJPzlc9Mk5LII1m"
 
+IAMPORT_SHOP_ID = 'iamport'  # FIXME: 실제 서비스에서는 각자의 가맹점 아이디를 쓰셔야 합니다.
+IAMPORT_API_KEY = 'imp_apikey'
+IAMPORT_API_SECRET = 'ekKoeW8RyKuT0zgaZsUtXXTLQ4AhPFW3ZGseDA6bkA5lamv9OqDMnxyeB9wqOsuO9W3Mx9YSJ4dTqJ3f'
+

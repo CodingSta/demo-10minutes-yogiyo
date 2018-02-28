@@ -7,6 +7,14 @@
                 <h3>{{ user }}'s Profile</h3>
 
                 <h4>주문내역</h4>
+
+                <table>
+                {% for order in order_list %}
+                    <tr>
+                        <td>{{ order }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
             </div>
         </div>
     </div>
